@@ -35,6 +35,7 @@ RUN set -ex; \
         git \
         supervisor \
         rsync \
+        samba-vfs-modules \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     chmod +x /startapp.sh; \
