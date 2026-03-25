@@ -14,6 +14,7 @@ if ! [ -f /smbserver/shadow ] || ! [ -f /smbserver/passwd ]; then
 else
     cp -pf /smbserver/shadow /etc/shadow
     cp -pf /smbserver/passwd /etc/passwd
+    cp -pf /smbserver/passdb.tdb /var/lib/samba/private/passdb.tdb
 fi
 if [ -d /smbserver/samba ]; then
     rsync -a --delete /smbserver/samba/ /etc/samba/ 
@@ -27,7 +28,9 @@ backup_important_files() {
     rm -f /smbserver/shadow
     cp -p /etc/shadow /smbserver/shadow 
     rm -f /smbserver/passwd
-    cp -p /etc/passwd /smbserver/passwd 
+    cp -p /etc/passwd /smbserver/passwd
+    rm -f /smbserver/passdb.tdb
+    cp -p /var/lib/samba/private/passdb.tdb /smbserver/passdb.tdb
     mkdir -p /smbserver/samba/
     rsync -a --delete /etc/samba/ /smbserver/samba/
     set +x
