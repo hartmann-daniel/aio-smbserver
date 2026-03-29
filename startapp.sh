@@ -14,7 +14,9 @@ if ! [ -f /smbserver/shadow ] || ! [ -f /smbserver/passwd ]; then
 else
     cp -pf /smbserver/shadow /etc/shadow
     cp -pf /smbserver/passwd /etc/passwd
-    cp -pf /smbserver/passdb.tdb /var/lib/samba/private/passdb.tdb
+    if [ -f /smbserver/passdb.tdb ]; then
+        cp -pf /smbserver/passdb.tdb /var/lib/samba/private/passdb.tdb
+    fi
 fi
 if [ -d /smbserver/samba ]; then
     rsync -a --delete /smbserver/samba/ /etc/samba/ 
